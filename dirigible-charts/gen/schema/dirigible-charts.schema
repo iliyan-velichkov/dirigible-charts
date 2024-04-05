@@ -1,0 +1,74 @@
+{
+    "schema": {
+        "structures": [
+            {
+                "name": "ORDERS",
+                "type": "TABLE",
+                "columns": [
+                    {
+                        "type": "INTEGER",
+                        "length": 0,
+                        "primaryKey": true,
+                        "identity": true,
+                        "nullable": true,
+                        "name": "ORDERS_ID"
+                    },
+                    {
+                        "type": "TIMESTAMP",
+                        "length": 20,
+                        "precision": "NaN",
+                        "scale": "NaN",
+                        "nullable": true,
+                        "name": "ORDERS_DATE"
+                    },
+                    {
+                        "type": "INTEGER",
+                        "length": 0,
+                        "precision": "NaN",
+                        "scale": "NaN",
+                        "nullable": true,
+                        "name": "ORDERS_SHOP"
+                    },
+                    {
+                        "type": "DOUBLE",
+                        "length": 20,
+                        "precision": "NaN",
+                        "scale": "NaN",
+                        "nullable": true,
+                        "name": "ORDERS_TOTAL"
+                    }
+                ]
+            },
+            {
+                "name": "SHOP",
+                "type": "TABLE",
+                "columns": [
+                    {
+                        "type": "INTEGER",
+                        "length": 0,
+                        "primaryKey": true,
+                        "identity": true,
+                        "nullable": true,
+                        "name": "SHOP_ID"
+                    },
+                    {
+                        "type": "VARCHAR",
+                        "length": 20,
+                        "nullable": true,
+                        "name": "SHOP_NAME"
+                    }
+                ]
+            },
+            {
+                "name": "Orders_Shop",
+                "type": "foreignKey",
+                "table": "ORDERS",
+                "constraintName": "Orders_Shop",
+                "columns": "ORDERS_SHOP",
+                "referencedTable": "SHOP",
+                "referencedColumns": "SHOP_ID"
+            }
+        ]
+    },
+    "datasource": "DefaultDB"
+}

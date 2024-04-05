@@ -1,0 +1,5 @@
+{
+    "module": "dirigible-charts/gen/ui/custom-action-dialog/view.js",
+    "extensionPoint": "dirigible-charts-dialog-window",
+    "description": "dirigible-charts - Custom Action Dialog Window"
+}

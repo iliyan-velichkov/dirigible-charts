@@ -1,0 +1,5 @@
+{
+    "module": "dirigible-charts/gen/ui/launchpad/menu-help.js",
+    "extensionPoint": "dirigible-charts-menu",
+    "description": "dirigible-charts - Application Menu"
+}

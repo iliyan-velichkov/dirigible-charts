@@ -1,0 +1,5 @@
+{
+    "module": "dirigible-charts/gen/ui/launchpad/Home/view.js",
+    "extensionPoint": "dirigible-charts-view",
+    "description": "dirigible-charts - Application View"
+}
