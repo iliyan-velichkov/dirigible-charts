@@ -60,6 +60,43 @@
                 ]
             },
             {
+                "name": "ORDERSREPORTFILTER",
+                "type": "TABLE",
+                "columns": [
+                    {
+                        "type": "VARCHAR",
+                        "length": 20,
+                        "primaryKey": true,
+                        "precision": "NaN",
+                        "scale": "NaN",
+                        "nullable": true,
+                        "name": "ORDERSREPORTFILTER_REPORT"
+                    },
+                    {
+                        "type": "INTEGER",
+                        "length": 0,
+                        "nullable": true,
+                        "name": "ORDERSREPORTFILTER_ORDERS"
+                    },
+                    {
+                        "type": "DATE",
+                        "length": 20,
+                        "precision": "NaN",
+                        "scale": "NaN",
+                        "nullable": true,
+                        "name": "ORDERSREPORTFILTER_STARTPERIOD"
+                    },
+                    {
+                        "type": "DATE",
+                        "length": 20,
+                        "precision": "NaN",
+                        "scale": "NaN",
+                        "nullable": true,
+                        "name": "ORDERSREPORTFILTER_ENDPERIOD"
+                    }
+                ]
+            },
+            {
                 "name": "Orders_Shop",
                 "type": "foreignKey",
                 "table": "ORDERS",
@@ -67,6 +104,22 @@
                 "columns": "ORDERS_SHOP",
                 "referencedTable": "SHOP",
                 "referencedColumns": "SHOP_ID"
+            },
+            {
+                "name": "OrdersReportFilter_OrdersReportBar",
+                "type": "foreignKey",
+                "table": "ORDERSREPORTFILTER",
+                "constraintName": "OrdersReportFilter_OrdersReportBar",
+                "columns": "ORDERSREPORTFILTER_REPORT",
+            },
+            {
+                "name": "OrdersReportFilter_Orders",
+                "type": "foreignKey",
+                "table": "ORDERSREPORTFILTER",
+                "constraintName": "OrdersReportFilter_Orders",
+                "columns": "ORDERSREPORTFILTER_ORDERS",
+                "referencedTable": "ORDERS",
+                "referencedColumns": "ORDERS_ID"
             }
         ]
     },
