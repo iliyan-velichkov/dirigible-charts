@@ -8,18 +8,24 @@ angular.module('page', ["ideUI", "ideView"])
 			details: {},
 		};
 
-		if (window != null && window.frameElement != null && window.frameElement.hasAttribute("data-parameters")) {
-			let dataParameters = window.frameElement.getAttribute("data-parameters");
-			if (dataParameters) {
-				let params = JSON.parse(dataParameters);
+		let params = ViewParameters.get();
+		if (Object.keys(params).length) {
+				if (params?.filter?.StartPeriod) {
+					params.filter.StartPeriod = new Date(params.filter.StartPeriod);
+				}
+				if (params?.filter?.EndPeriod) {
+					params.filter.EndPeriod = new Date(params.filter.EndPeriod);
+				}
 				$scope.entity = params.filter ?? {};
-			}
+				$scope.optionsShop = params.optionsShop;
 		}
 
 		$scope.filter = function () {
 			const filter = {
 				...$scope.entity
 			};
+			filter.StartPeriod = filter.StartPeriod?.getTime();
+			filter.EndPeriod = filter.EndPeriod?.getTime();
 			messageHub.postMessage("filter", filter);
 			$scope.cancel();
 		};

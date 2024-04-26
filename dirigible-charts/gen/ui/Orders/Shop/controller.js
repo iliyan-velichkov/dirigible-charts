@@ -5,7 +5,7 @@ angular.module('page', ["ideUI", "ideView", "entityApi"])
 	.config(["entityApiProvider", function (entityApiProvider) {
 		entityApiProvider.baseUrl = "/services/ts/dirigible-charts/gen/api/Orders/ShopService.ts";
 	}])
-	.controller('PageController', ['$scope', '$http', 'messageHub', 'entityApi', function ($scope, $http, messageHub, entityApi) {
+	.controller('PageController', ['$scope', 'messageHub', 'entityApi', 'Extensions', function ($scope, messageHub, entityApi, Extensions) {
 
 		$scope.dataPage = 1;
 		$scope.dataCount = 0;
@@ -14,19 +14,18 @@ angular.module('page', ["ideUI", "ideView", "entityApi"])
 		$scope.action = "select";
 
 		//-----------------Custom Actions-------------------//
-		$http.get("/services/js/resources-core/services/custom-actions.js?extensionPoint=dirigible-charts-custom-action").then(function (response) {
-			$scope.pageActions = response.data.filter(e => e.perspective === "Orders" && e.view === "Shop" && (e.type === "page" || e.type === undefined));
+		Extensions.get('dialogWindow', 'dirigible-charts-custom-action').then(function (response) {
+			$scope.pageActions = response.filter(e => e.perspective === "Orders" && e.view === "Shop" && (e.type === "page" || e.type === undefined));
 		});
 
-		$scope.triggerPageAction = function (actionId) {
-			for (const next of $scope.pageActions) {
-				if (next.id === actionId) {
-					messageHub.showDialogWindow("dirigible-charts-custom-action", {
-						src: next.link,
-					});
-					break;
-				}
-			}
+		$scope.triggerPageAction = function (action) {
+			messageHub.showDialogWindow(
+				action.id,
+				{},
+				null,
+				true,
+				action
+			);
 		};
 		//-----------------Custom Actions-------------------//
 

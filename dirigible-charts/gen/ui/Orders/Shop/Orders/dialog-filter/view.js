@@ -4,16 +4,14 @@
  * Do not modify the content as it may be re-generated again.
  */
 const viewData = {
-    id: "Orders",
-    label: "Orders",
-    factory: "frame",
-    region: "left",
-    link: "/services/web/dirigible-charts/gen/ui/Orders/Orders/index.html",
+    id: "Orders-filter",
+    label: "Orders Filter",
+    link: "/services/web/dirigible-charts/gen/ui/Orders/Shop/Orders/dialog-filter/index.html",
     perspectiveName: "Orders",
 };
 
 if (typeof exports !== 'undefined') {
-    exports.getView = function () {
+    exports.getDialogWindow = function () {
         return viewData;
     }
 }

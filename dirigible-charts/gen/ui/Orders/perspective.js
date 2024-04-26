@@ -4,11 +4,11 @@
  * Do not modify the content as it may be re-generated again.
  */
 const perspectiveData = {
-	id: "Orders",
-	name: "Orders",
-	link: "/services/web/dirigible-charts/gen/ui/Orders/index.html",
-	order: "100",
-	icon: "/services/web/resources/unicons/box.svg",
+	id: 'Orders',
+	name: 'Orders',
+	link: '/services/web/dirigible-charts/gen/ui/Orders/index.html',
+	order: 100,
+	icon: '/services/web/resources/unicons/box.svg',
 };
 
 if (typeof exports !== 'undefined') {

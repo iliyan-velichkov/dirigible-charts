@@ -5,7 +5,7 @@ angular.module('page', ["ideUI", "ideView", "entityApi"])
 	.config(["entityApiProvider", function (entityApiProvider) {
 		entityApiProvider.baseUrl = "/services/ts/dirigible-charts/gen/api/Reports/OrdersReportBarService.ts";
 	}])
-	.controller('PageController', ['$scope', 'messageHub', 'entityApi', function ($scope, messageHub, entityApi) {
+	.controller('PageController', ['$scope', '$http', 'messageHub', 'entityApi', function ($scope, $http, messageHub, entityApi) {
 
 		$scope.filter = {};
 
@@ -37,8 +37,15 @@ angular.module('page', ["ideUI", "ideView", "entityApi"])
 						messageHub.showAlertError("OrdersReportBar", `Unable to list OrdersReportBar: '${response.message}'`);
 						return;
 					}
+
+					response.data.forEach(e => {
+						if (e.OrderDate) {
+							e.OrderDate = new Date(e.OrderDate);
+						}
+					});
+
 					$scope.data = response.data;
-					myChart.data.labels = $scope.data.map(e => e.Project);
+					myChart.data.labels = $scope.data.map(e => e.OrderDate);
 					myChart.data.datasets = [
 						{
 							label: 'Total',
@@ -57,8 +64,29 @@ angular.module('page', ["ideUI", "ideView", "entityApi"])
 			messageHub.showDialogWindow("OrdersReportBar-details-filter", {
 				action: "filter",
 				filter: $scope.filter,
+				optionsShop: $scope.optionsShop,
 			});
 		};
 
+		//----------------Dropdowns-----------------//
+		$scope.optionsShop = [];
+
+		$http.get("/services/ts/dirigible-charts/gen/api/Orders/ShopService.ts").then(function (response) {
+			$scope.optionsShop = response.data.map(e => {
+				return {
+					value: e.Id,
+					text: e.Name
+				}
+			});
+		});
+		$scope.optionsShopValue = function (optionKey) {
+			for (let i = 0; i < $scope.optionsShop.length; i++) {
+				if ($scope.optionsShop[i].value === optionKey) {
+					return $scope.optionsShop[i].text;
+				}
+			}
+			return null;
+		};
+		//----------------Dropdowns-----------------//
 
 	}]);

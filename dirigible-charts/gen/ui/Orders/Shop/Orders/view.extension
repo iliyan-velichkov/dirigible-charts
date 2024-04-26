@@ -1,0 +1,5 @@
+{
+    "module": "dirigible-charts/gen/ui/Orders/Shop/Orders/view.js",
+    "extensionPoint": "dirigible-charts-view",
+    "description": "dirigible-charts - Application View - Details"
+}

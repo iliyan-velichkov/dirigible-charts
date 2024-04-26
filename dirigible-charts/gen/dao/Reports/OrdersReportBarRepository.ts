@@ -1,11 +1,14 @@
 import { database } from "sdk/db";
 
 export interface OrdersReportBar {
-    readonly Project: string;
+    readonly OrderDate: Date;
     readonly Total: number;
 }
 
 export interface OrdersReportBarFilter {
+    readonly Shop?: number;
+    readonly StartPeriod?: Date;
+    readonly EndPeriod?: Date;
 }
 
 export interface OrdersReportBarPaginatedFilter extends OrdersReportBarFilter {
@@ -28,12 +31,21 @@ export class OrdersReportBarRepository {
             connection = database.getConnection(this.datasourceName);
 
             const sql = `
-                SELECT ORDERS_SHOP, COUNT(*) AS ORDERS_COUNT FROM "ORDERS" group by ORDERS_SHOP
+                select o.ORDERS_DATE as "OrderDate", sum(o.ORDERS_TOTAL) as "Total" from ORDERS o join "SHOP" s on o.ORDERS_SHOP = s.SHOP_ID ${     filter.Shop && filter.StartPeriod && filter.EndPeriod ?         `where s.SHOP_ID = ? and o.ORDERS_DATE >= ? and o.ORDERS_DATE <= ?`     :     filter.Shop && filter.StartPeriod ?         `where s.SHOP_ID = ? and o.ORDERS_DATE >= ?`     :     filter.Shop && filter.EndPeriod ?         `where s.SHOP_ID = ? and o.ORDERS_DATE <= ?`     :     filter.StartPeriod && filter.EndPeriod ?         `where o.ORDERS_DATE >= ? and o.ORDERS_DATE <= ? `     :     filter.Shop ?         `where s.SHOP_ID = ?`     :     filter.StartPeriod ?         `where o.ORDERS_DATE >= ?`     :     filter.EndPeriod ?         `where o.ORDERS_DATE <= ?`     :         '' } group by s.SHOP_NAME, o.ORDERS_DATE ${     filter["$limit"] && filter["$offset"] ?         'limit ? offset ?'     :     filter["$limit"] ?         'limit ?'     :     filter["$offset"] ?         'offset ?'     :         '' }
             `;
 
             const statement = connection.prepareStatement(sql);
 
             let paramIndex = 1;
+            if (filter.Shop) {
+                statement.setInt(paramIndex++, filter.Shop);
+            }
+            if (filter.StartPeriod) {
+                statement.setDate(paramIndex++, filter.StartPeriod);
+            }
+            if (filter.EndPeriod) {
+                statement.setDate(paramIndex++, filter.EndPeriod);
+            }
             if (filter["$limit"]) {
                 statement.setInt(paramIndex++, filter["$limit"]);
             }
@@ -44,7 +56,7 @@ export class OrdersReportBarRepository {
             const resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 data.push({
-                    Project: resultSet.getString("Project"),
+                    OrderDate: resultSet.getDate("OrderDate"),
                     Total: resultSet.getDouble("Total")
                 });
             }
@@ -65,12 +77,21 @@ export class OrdersReportBarRepository {
             connection = database.getConnection(this.datasourceName);
 
             const sql = `
-                SELECT COUNT(*) AS ORDERS_COUNT FROM "ORDERS" group by ORDERS_SHOP
+                select count(*) from (     select o.ORDERS_DATE as "OrderDate", sum(o.ORDERS_TOTAL) as "Total"     from ORDERS o     join "SHOP" s on o.ORDERS_SHOP = s.SHOP_ID     ${         filter.Shop && filter.StartPeriod && filter.EndPeriod ?             `where s.SHOP_ID = ? and o.ORDERS_DATE >= ? and o.ORDERS_DATE <= ?`         :         filter.Shop && filter.StartPeriod ?             `where s.SHOP_ID = ? and o.ORDERS_DATE >= ?`         :         filter.Shop && filter.EndPeriod ?             `where s.SHOP_ID = ? and o.ORDERS_DATE <= ?`         :         filter.StartPeriod && filter.EndPeriod ?             `where o.ORDERS_DATE >= ? and o.ORDERS_DATE <= ? `         :         filter.Shop ?             `where s.SHOP_ID = ?`         :         filter.StartPeriod ?             `where o.ORDERS_DATE >= ?`         :         filter.EndPeriod ?             `where o.ORDERS_DATE <= ?`         :             ''     }     group by s.SHOP_NAME, o.ORDERS_DATE )
             `;
 
             const statement = connection.prepareStatement(sql);
 
             let paramIndex = 1;
+            if (filter.Shop) {
+                statement.setInt(paramIndex++, filter.Shop);
+            }
+            if (filter.StartPeriod) {
+                statement.setDate(paramIndex++, filter.StartPeriod);
+            }
+            if (filter.EndPeriod) {
+                statement.setDate(paramIndex++, filter.EndPeriod);
+            }
 
             const resultSet = statement.executeQuery();
             while (resultSet.next()) {

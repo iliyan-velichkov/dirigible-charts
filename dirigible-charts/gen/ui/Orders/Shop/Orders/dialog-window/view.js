@@ -4,10 +4,10 @@
  * Do not modify the content as it may be re-generated again.
  */
 const viewData = {
-    id: "OrdersReportFilter-details",
-    label: "OrdersReportFilter",
-    link: "/services/web/dirigible-charts/gen/ui/Reports/OrdersReportFilter/dialog-window/index.html",
-    perspectiveName: "Reports",
+    id: "Orders-details",
+    label: "Orders",
+    link: "/services/web/dirigible-charts/gen/ui/Orders/Shop/Orders/dialog-window/index.html",
+    perspectiveName: "Orders",
 };
 
 if (typeof exports !== 'undefined') {

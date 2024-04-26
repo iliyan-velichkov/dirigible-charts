@@ -11,6 +11,9 @@ class OrdersReportBarService {
     public filter(_: any, ctx: any) {
         try {
             const filter: OrdersReportBarPaginatedFilter = {
+                Shop: ctx.queryParameters.Shop ? parseInt(ctx.queryParameters.Shop) : undefined,
+                StartPeriod: ctx.queryParameters.StartPeriod ? new Date(parseInt(ctx.queryParameters.StartPeriod)) : undefined,
+                EndPeriod: ctx.queryParameters.EndPeriod ? new Date(parseInt(ctx.queryParameters.EndPeriod)) : undefined,
                 "$limit": ctx.queryParameters["$limit"] ? parseInt(ctx.queryParameters["$limit"]) : undefined,
                 "$offset": ctx.queryParameters["$offset"] ? parseInt(ctx.queryParameters["$offset"]) : undefined
             };
@@ -25,6 +28,9 @@ class OrdersReportBarService {
     public count(_: any, ctx: any) {
         try {
             const filter: OrdersReportBarFilter = {
+                Shop: ctx.queryParameters.Shop ? parseInt(ctx.queryParameters.Shop) : undefined,
+                StartPeriod: ctx.queryParameters.StartPeriod ? new Date(parseInt(ctx.queryParameters.StartPeriod)) : undefined,
+                EndPeriod: ctx.queryParameters.EndPeriod ? new Date(parseInt(ctx.queryParameters.EndPeriod)) : undefined,
             };
 
             const count = this.repository.count(filter);

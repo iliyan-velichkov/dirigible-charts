@@ -6,13 +6,13 @@ import { EntityUtils } from "../utils/EntityUtils";
 
 export interface OrdersReportFilterEntity {
     readonly Report: string;
-    Orders?: number;
+    Shop?: number;
     StartPeriod?: Date;
     EndPeriod?: Date;
 }
 
 export interface OrdersReportFilterCreateEntity {
-    readonly Orders?: number;
+    readonly Shop?: number;
     readonly StartPeriod?: Date;
     readonly EndPeriod?: Date;
 }
@@ -25,43 +25,43 @@ export interface OrdersReportFilterEntityOptions {
     $filter?: {
         equals?: {
             Report?: string | string[];
-            Orders?: number | number[];
+            Shop?: number | number[];
             StartPeriod?: Date | Date[];
             EndPeriod?: Date | Date[];
         };
         notEquals?: {
             Report?: string | string[];
-            Orders?: number | number[];
+            Shop?: number | number[];
             StartPeriod?: Date | Date[];
             EndPeriod?: Date | Date[];
         };
         contains?: {
             Report?: string;
-            Orders?: number;
+            Shop?: number;
             StartPeriod?: Date;
             EndPeriod?: Date;
         };
         greaterThan?: {
             Report?: string;
-            Orders?: number;
+            Shop?: number;
             StartPeriod?: Date;
             EndPeriod?: Date;
         };
         greaterThanOrEqual?: {
             Report?: string;
-            Orders?: number;
+            Shop?: number;
             StartPeriod?: Date;
             EndPeriod?: Date;
         };
         lessThan?: {
             Report?: string;
-            Orders?: number;
+            Shop?: number;
             StartPeriod?: Date;
             EndPeriod?: Date;
         };
         lessThanOrEqual?: {
             Report?: string;
-            Orders?: number;
+            Shop?: number;
             StartPeriod?: Date;
             EndPeriod?: Date;
         };
@@ -97,8 +97,8 @@ export class OrdersReportFilterRepository {
                 autoIncrement: false,
             },
             {
-                name: "Orders",
-                column: "ORDERSREPORTFILTER_ORDERS",
+                name: "Shop",
+                column: "ORDERSREPORTFILTER_SHOP",
                 type: "INTEGER",
             },
             {

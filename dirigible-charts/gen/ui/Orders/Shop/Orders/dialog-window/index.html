@@ -17,13 +17,13 @@
 
     <body class="dg-vbox">
         <fd-scrollbar class="dg-full-height">
-            <fd-fieldset class="fd-margin--md" ng-form="forms.details">
+            <fd-fieldset ng-form="forms.details">
                 <fd-form-group dg-header="{{formHeaders[action]}}" name="entityForm" class="fd-container fd-form-layout-grid-container">
                     <fd-form-item class="fd-row">
                     	<div class="fd-col fd-col-md--2">
                         	<fd-form-label for="idDate" dg-required="false" dg-colon="true">Date</fd-form-label>
                         </div>
-                        <div class="fd-col  fd-col-md--3 ">
+                        <div class="fd-col  fd-col-md--2 ">
 	                        <fd-form-input-message-group dg-inactive="{{ forms.details['Date'].$valid }}">
 	                            <fd-input id="idDate"
 	                                name="Date"
@@ -31,26 +31,10 @@
 									ng-required="false"
 	                                ng-model="entity.Date"
 	                                ng-readonly="action === 'select'"
-	                                type="datetime-local">
+	                                type="date">
 	                            </fd-input>
 	                            <fd-form-message dg-type="error">Incorrect Input</fd-form-message>
 	                        </fd-form-input-message-group>
-	                    </div>
-                    </fd-form-item>
-                    <fd-form-item class="fd-row">
-                    	<div class="fd-col fd-col-md--2">
-                        	<fd-form-label for="idShop" dg-required="true" dg-colon="true">Shop</fd-form-label>
-                        </div>
-                        <div class="fd-col  fd-col-md--8 ">
-	                        <fd-combobox-input id="idShop"
-	                            name="Shop"
-	                            state="{{ forms.details['Shop'].$valid ? '' : 'error' }}"
-	                            ng-required="true"
-	                            ng-model="entity.Shop"
-	                            dg-disabled="action === 'select'"
-	                            dropdown-items="optionsShop"
-	                            dg-placeholder="Search Shop ...">
-	                        </fd-combobox-input>
 	                    </div>
                     </fd-form-item>
                     <fd-form-item class="fd-row">
@@ -79,22 +63,16 @@
             </fd-fieldset>
         </fd-scrollbar>
 
-        <footer class="fd-dialog__footer fd-bar fd-bar--footer" ng-show="action !== 'select'">
-            <div class="fd-bar__right">
-                <fd-button class="fd-margin-end--tiny fd-dialog__decisive-button" compact="true" dg-type="emphasized"
-                    dg-label="{{action === 'create' ? 'Create' : 'Update'}}"
-                    ng-click="action === 'create' ? create() : update()" state="{{ forms.details.$valid ? '' : 'disabled'  }}">
-                </fd-button>
-                <fd-button class="fd-dialog__decisive-button" compact="true" dg-type="transparent" dg-label="Cancel"
-                    ng-click="cancel()"></fd-button>
-            </div>
-        </footer>
-        <footer class="fd-dialog__footer fd-bar fd-bar--footer" ng-show="action === 'select' && entityActions.length && entity.Id">
-            <div class="fd-bar__right">
-                <fd-button ng-repeat="action in entityActions" class="fd-dialog__decisive-button" compact="true" dg-type="emphasized" dg-label="{{action.label}}"
-                    ng-click="triggerEntityAction(action.id, next)"></fd-button>
-            </div>
-        </footer>
+		<fd-bar bar-design="footer" compact="true" ng-show="action !== 'select'">
+			<fd-bar-right>
+				<fd-bar-element>
+					<fd-button dg-label="{{action === 'create' ? 'Create' : 'Update'}}" dg-type="emphasized" ng-click="action === 'create' ? create() : update()" state="{{ forms.details.$valid ? '' : 'disabled' }}"></fd-button>
+				</fd-bar-element>
+				<fd-bar-element>
+					<fd-button dg-label="Cancel" dg-type="transparent" ng-click="cancel()"></fd-button>
+				</fd-bar-element>
+			</fd-bar-right>
+		</fd-bar>
     </body>
 
 </html>

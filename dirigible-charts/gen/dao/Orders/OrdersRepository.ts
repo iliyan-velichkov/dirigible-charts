@@ -2,6 +2,7 @@ import { query } from "sdk/db";
 import { producer } from "sdk/messaging";
 import { extensions } from "sdk/extensions";
 import { dao as daoApi } from "sdk/db";
+import { EntityUtils } from "../utils/EntityUtils";
 
 export interface OrdersEntity {
     readonly Id: number;
@@ -98,7 +99,7 @@ export class OrdersRepository {
             {
                 name: "Date",
                 column: "ORDERS_DATE",
-                type: "TIMESTAMP",
+                type: "DATE",
             },
             {
                 name: "Shop",
@@ -120,15 +121,20 @@ export class OrdersRepository {
     }
 
     public findAll(options?: OrdersEntityOptions): OrdersEntity[] {
-        return this.dao.list(options);
+        return this.dao.list(options).map((e: OrdersEntity) => {
+            EntityUtils.setDate(e, "Date");
+            return e;
+        });
     }
 
     public findById(id: number): OrdersEntity | undefined {
         const entity = this.dao.find(id);
+        EntityUtils.setDate(entity, "Date");
         return entity ?? undefined;
     }
 
     public create(entity: OrdersCreateEntity): number {
+        EntityUtils.setLocalDate(entity, "Date");
         const id = this.dao.insert(entity);
         this.triggerEvent({
             operation: "create",
@@ -144,6 +150,7 @@ export class OrdersRepository {
     }
 
     public update(entity: OrdersUpdateEntity): void {
+        // EntityUtils.setLocalDate(entity, "Date");
         this.dao.update(entity);
         this.triggerEvent({
             operation: "update",

@@ -14,7 +14,14 @@ class OrdersService {
     @Get("/")
     public getAll(_: any, ctx: any) {
         try {
+            let Shop = parseInt(ctx.queryParameters.Shop);
+            Shop = isNaN(Shop) ? ctx.queryParameters.Shop : Shop;
             const options: OrdersEntityOptions = {
+                $filter: {
+                    equals: {
+                        Shop: Shop
+                    }
+                },
                 $limit: ctx.queryParameters["$limit"] ? parseInt(ctx.queryParameters["$limit"]) : undefined,
                 $offset: ctx.queryParameters["$offset"] ? parseInt(ctx.queryParameters["$offset"]) : undefined
             };
