@@ -10,7 +10,7 @@ servers:
   - url: /services/ts
 tags:
   - name: Orders
-  - name: Orders
+  - name: Shops
   - name: Reports
   - name: Reports
 paths:
@@ -398,7 +398,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /dirigible-charts/gen/api/Orders/ShopService.ts:
+  /dirigible-charts/gen/api/Shops/ShopService.ts:
     get:
       summary: List Shop
       parameters:
@@ -419,7 +419,7 @@ paths:
             type: integer
             allowEmptyValue: true
       tags:
-        - Orders
+        - Shops
       responses:
         200:
           description: Successful Request
@@ -450,7 +450,7 @@ paths:
     post:
       summary: Create Shop
       tags:
-        - Orders
+        - Shops
       requestBody:
         content:
           application/json:
@@ -482,7 +482,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /dirigible-charts/gen/api/Orders/ShopService.ts/{id}:
+  /dirigible-charts/gen/api/Shops/ShopService.ts/{id}:
     get:
       summary: Get Shop by Id
       parameters:
@@ -493,7 +493,7 @@ paths:
           schema:
             type: string
       tags:
-        - Orders
+        - Shops
       responses:
         200:
           description: Successful Request
@@ -531,7 +531,7 @@ paths:
           schema:
             type: string
       tags:
-        - Orders
+        - Shops
       requestBody:
         content:
           application/json:
@@ -579,7 +579,7 @@ paths:
           schema:
             type: string
       tags:
-        - Orders
+        - Shops
       responses:
         204:
           description: Successful Request
@@ -601,11 +601,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /dirigible-charts/gen/api/Orders/ShopService.ts/count:
+  /dirigible-charts/gen/api/Shops/ShopService.ts/count:
     get:
       summary: Count the number of Shop
       tags:
-        - Orders
+        - Shops
       responses:
         200:
           description: Successful Request
@@ -629,7 +629,7 @@ paths:
     post:
       summary: Count the number of Shop by ShopFilterOptions
       tags:
-        - Orders
+        - Shops
       requestBody:
         content:
           application/json:
@@ -711,11 +711,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /dirigible-charts/gen/api/Orders/ShopService.ts/search:
+  /dirigible-charts/gen/api/Shops/ShopService.ts/search:
     post:
       summary: Search Shop by ShopFilterOptions
       tags:
-        - Orders
+        - Shops
       requestBody:
         content:
           application/json:

@@ -66,7 +66,7 @@
                         "widgetSize": "",
                         "widgetType": "DROPDOWN",
                         "relationshipEntityName": "Shop",
-                        "relationshipEntityPerspectiveName": "Orders",
+                        "relationshipEntityPerspectiveName": "Shops",
                         "relationshipEntityPerspectiveLabel": "Entities"
                     },
                     {
@@ -95,7 +95,7 @@
                 "dataName": "ORDERS",
                 "dataQuery": "",
                 "icon": "/services/web/resources/unicons/file.svg",
-                "layoutType": "MANAGE_DETAILS",
+                "layoutType": "MANAGE_MASTER",
                 "menuIndex": "100",
                 "menuKey": "orders",
                 "menuLabel": "Orders",
@@ -108,7 +108,7 @@
                 "perspectiveRole": "",
                 "title": "Orders",
                 "tooltip": "Orders",
-                "type": "DEPENDENT"
+                "type": "PRIMARY"
             },
             {
                 "properties": [
@@ -160,10 +160,10 @@
                 "menuLabel": "Shop",
                 "name": "Shop",
                 "navigationPath": "/Home",
-                "perspectiveIcon": "/services/web/resources/unicons/box.svg",
-                "perspectiveLabel": "Orders",
-                "perspectiveName": "Orders",
-                "perspectiveOrder": "100",
+                "perspectiveIcon": "/services/web/resources/unicons/store-alt.svg",
+                "perspectiveLabel": "shops",
+                "perspectiveName": "Shops",
+                "perspectiveOrder": "50",
                 "perspectiveRole": "",
                 "title": "Shop",
                 "tooltip": "Shop",
@@ -220,7 +220,7 @@
                         "widgetType": "DROPDOWN",
                         "relationshipName": "OrdersReportFilter_Shop",
                         "relationshipEntityName": "Shop",
-                        "relationshipEntityPerspectiveName": "Orders",
+                        "relationshipEntityPerspectiveName": "Shops",
                         "relationshipEntityPerspectiveLabel": "Entities"
                     },
                     {
@@ -361,6 +361,13 @@
                 "label": "Reports",
                 "icon": "/services/web/resources/unicons/chart-line.svg",
                 "order": "200",
+                "role": {}
+            },
+            {
+                "name": "Shops",
+                "label": "shops",
+                "icon": "/services/web/resources/unicons/store-alt.svg",
+                "order": "50",
                 "role": {}
             }
         ],

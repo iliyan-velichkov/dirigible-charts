@@ -71,7 +71,7 @@ angular.module('page', ["ideUI", "ideView", "entityApi"])
 		//----------------Dropdowns-----------------//
 		$scope.optionsShop = [];
 
-		$http.get("/services/ts/dirigible-charts/gen/api/Orders/ShopService.ts").then(function (response) {
+		$http.get("/services/ts/dirigible-charts/gen/api/Shops/ShopService.ts").then(function (response) {
 			$scope.optionsShop = response.data.map(e => {
 				return {
 					value: e.Id,

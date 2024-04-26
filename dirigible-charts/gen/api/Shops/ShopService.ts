@@ -1,20 +1,20 @@
 import { Controller, Get, Post, Put, Delete, response } from "sdk/http"
 import { Extensions } from "sdk/extensions"
-import { OrdersRepository, OrdersEntityOptions } from "../../dao/Orders/OrdersRepository";
+import { ShopRepository, ShopEntityOptions } from "../../dao/Shops/ShopRepository";
 import { ValidationError } from "../utils/ValidationError";
 import { HttpUtils } from "../utils/HttpUtils";
 
-const validationModules = await Extensions.loadExtensionModules("dirigible-charts-Orders-Orders", ["validate"]);
+const validationModules = await Extensions.loadExtensionModules("dirigible-charts-Shops-Shop", ["validate"]);
 
 @Controller
-class OrdersService {
+class ShopService {
 
-    private readonly repository = new OrdersRepository();
+    private readonly repository = new ShopRepository();
 
     @Get("/")
     public getAll(_: any, ctx: any) {
         try {
-            const options: OrdersEntityOptions = {
+            const options: ShopEntityOptions = {
                 $limit: ctx.queryParameters["$limit"] ? parseInt(ctx.queryParameters["$limit"]) : undefined,
                 $offset: ctx.queryParameters["$offset"] ? parseInt(ctx.queryParameters["$offset"]) : undefined
             };
@@ -30,7 +30,7 @@ class OrdersService {
         try {
             this.validateEntity(entity);
             entity.Id = this.repository.create(entity);
-            response.setHeader("Content-Location", "/services/ts/dirigible-charts/gen/api/Orders/OrdersService.ts/" + entity.Id);
+            response.setHeader("Content-Location", "/services/ts/dirigible-charts/gen/api/Shops/ShopService.ts/" + entity.Id);
             response.setStatus(response.CREATED);
             return entity;
         } catch (error: any) {
@@ -73,7 +73,7 @@ class OrdersService {
             if (entity) {
                 return entity;
             } else {
-                HttpUtils.sendResponseNotFound("Orders not found");
+                HttpUtils.sendResponseNotFound("Shop not found");
             }
         } catch (error: any) {
             this.handleError(error);
@@ -101,7 +101,7 @@ class OrdersService {
                 this.repository.deleteById(id);
                 HttpUtils.sendResponseNoContent();
             } else {
-                HttpUtils.sendResponseNotFound("Orders not found");
+                HttpUtils.sendResponseNotFound("Shop not found");
             }
         } catch (error: any) {
             this.handleError(error);
@@ -119,11 +119,8 @@ class OrdersService {
     }
 
     private validateEntity(entity: any): void {
-        if (entity.Shop === null || entity.Shop === undefined) {
-            throw new ValidationError(`The 'Shop' property is required, provide a valid value`);
-        }
-        if (entity.Total === null || entity.Total === undefined) {
-            throw new ValidationError(`The 'Total' property is required, provide a valid value`);
+        if (entity.Name?.length > 20) {
+            throw new ValidationError(`The 'Name' exceeds the maximum length of [20] characters`);
         }
         for (const next of validationModules) {
             next.validate(entity);

@@ -1,5 +1,0 @@
-{
-    "module": "dirigible-charts/gen/ui/Orders/Shop/Orders/dialog-window/view.js",
-    "extensionPoint": "dirigible-charts-dialog-window",
-    "description": "dirigible-charts - Application Dialog Window"
-}
